@@ -1,4 +1,4 @@
-﻿namespace GitVersion
+namespace GitVersion
 {
     using LibGit2Sharp;
     using System;
@@ -113,6 +113,7 @@
 
             var versioningMode = currentBranchConfig.VersioningMode.Value;
             var tag = currentBranchConfig.Tag;
+            var tagSeparator = currentBranchConfig.TagSeparator ?? "-";
             var tagNumberPattern = currentBranchConfig.TagNumberPattern;
             var incrementStrategy = currentBranchConfig.Increment.Value;
             var preventIncrementForMergedBranchVersion = currentBranchConfig.PreventIncrementOfMergedBranchVersion.Value;
@@ -136,7 +137,7 @@
 
             Configuration = new EffectiveConfiguration(
                 assemblyVersioningScheme, assemblyFileVersioningScheme, assemblyInformationalFormat, assemblyVersioningFormat, assemblyFileVersioningFormat, versioningMode, gitTagPrefix,
-                tag, nextVersion, incrementStrategy,
+                tag, tagSeparator, nextVersion, incrementStrategy,
                 currentBranchConfig.Regex,
                 preventIncrementForMergedBranchVersion,
                 tagNumberPattern, FullConfiguration.ContinuousDeploymentFallbackTag,

@@ -342,6 +342,15 @@ of `alpha.foo` with the value of `alpha.{BranchName}`.
 
 **Note:** To clear a default use an empty string: `tag: ''`
 
+### tagSeparator
+The separator to replace non-standard symbols ([^a-zA-Z0-9]) of pre-release tag.
+Works only with `tag` configuration param containing `{BranchName}` or `useBranchName`.
+Default value is `-`. For example `feature/foo/bar/baz` would become a pre-release
+tag of `foo-bar-bas` with this value. For `alpha.{BranchName}` and `#` for separator value
+`feature/foo+bar-baz` would become a pre-release tag of `alpha.foo#bar#baz`.
+To clear all non-standard symbols empty string: `tag: ''`
+
+
 ### increment
 Same as for the [global configuration, explained above](#increment).
 

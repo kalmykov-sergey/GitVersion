@@ -16,6 +16,7 @@ namespace GitVersionCore.Tests
             VersioningMode versioningMode = VersioningMode.ContinuousDelivery,
             string gitTagPrefix = "v",
             string tag = "",
+            string tagSeparator = null,
             string nextVersion = null,
             string branchPrefixToTrim = "",
             bool preventIncrementForMergedBranchVersion = false,
@@ -34,7 +35,7 @@ namespace GitVersionCore.Tests
             bool tracksReleaseBranches = false,
             bool isRelease = false,
             string commitDateFormat = "yyyy-MM-dd") :
-            base(assemblyVersioningScheme, assemblyFileVersioningScheme, assemblyInformationalFormat, assemblyVersioningFormat, assemblyFileVersioningFormat, versioningMode, gitTagPrefix, tag, nextVersion, IncrementStrategy.Patch,
+            base(assemblyVersioningScheme, assemblyFileVersioningScheme, assemblyInformationalFormat, assemblyVersioningFormat, assemblyFileVersioningFormat, versioningMode, gitTagPrefix, tag, tagSeparator, nextVersion, IncrementStrategy.Patch,
                     branchPrefixToTrim, preventIncrementForMergedBranchVersion, tagNumberPattern, continuousDeploymentFallbackTag,
                     trackMergeTarget,
                     majorMessage, minorMessage, patchMessage, noBumpMessage,

@@ -83,6 +83,88 @@ namespace GitVersionCore.Tests.VersionCalculation
 
                 fixture.AssertFullSemver(config, "1.0.0-foo.1+2");
             }
+
+            using (var fixture = new EmptyRepositoryFixture())
+            {
+                fixture.MakeACommit();
+                fixture.BranchTo("custom/JIRA-123");
+                fixture.MakeACommit();
+                fixture.MakeACommit();
+
+                fixture.AssertFullSemver(config, "1.0.0-JIRA-123.1+2");
+            }
+        }
+
+        [Test]
+        public void PreReleaseTagCanUseBranchNameWithSeparator()
+        {
+            var config = new Config
+            {
+                NextVersion = "1.0.0",
+                Branches = new Dictionary<string, BranchConfig>
+                {
+                    {
+                        "custom", new BranchConfig
+                        {
+                            Regex = "custom/",
+                            Tag = "useBranchName",
+                            TagSeparator = "_",
+                            VersioningMode = VersioningMode.ContinuousDelivery,
+                            SourceBranches = new List<string>()
+                        }
+                    }
+                }
+            };
+
+            var emptyConfig = new Config
+            {
+                NextVersion = "1.0.0",
+                Branches = new Dictionary<string, BranchConfig>
+                {
+                    {
+                        "custom", new BranchConfig
+                        {
+                            Regex = "custom/",
+                            Tag = "useBranchName",
+                            TagSeparator = "",
+                            VersioningMode = VersioningMode.ContinuousDelivery,
+                            SourceBranches = new List<string>()
+                        }
+                    }
+                }
+            };
+
+            using (var fixture = new EmptyRepositoryFixture())
+            {
+                fixture.MakeACommit();
+                fixture.BranchTo("develop");
+                fixture.MakeACommit();
+                fixture.BranchTo("custom/foo-bar-baz");
+                fixture.MakeACommit();
+
+                fixture.AssertFullSemver(config, "1.0.0-foo_bar_baz.1+2");
+            }
+
+            using (var fixture = new EmptyRepositoryFixture())
+            {
+                fixture.MakeACommit();
+                fixture.BranchTo("develop");
+                fixture.MakeACommit();
+                fixture.BranchTo("custom/foo-bar.baz");
+                fixture.MakeACommit();
+
+                fixture.AssertFullSemver(emptyConfig, "1.0.0-foobarbaz.1+2");
+            }
+
+            using (var fixture = new EmptyRepositoryFixture())
+            {
+                fixture.MakeACommit();
+                fixture.BranchTo("custom/JIRA-123");
+                fixture.MakeACommit();
+                fixture.MakeACommit();
+
+                fixture.AssertFullSemver(config, "1.0.0-JIRA_123.1+2");
+            }
         }
 
         [Test]

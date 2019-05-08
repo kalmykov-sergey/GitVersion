@@ -1,4 +1,4 @@
-﻿namespace GitVersion
+namespace GitVersion
 {
     using System.Collections.Generic;
     using YamlDotNet.Serialization;
@@ -16,6 +16,7 @@
         {
             VersioningMode = branchConfiguration.VersioningMode;
             Tag = branchConfiguration.Tag;
+            TagSeparator = branchConfiguration.TagSeparator;
             Increment = branchConfiguration.Increment;
             PreventIncrementOfMergedBranchVersion = branchConfiguration.PreventIncrementOfMergedBranchVersion;
             TagNumberPattern = branchConfiguration.TagNumberPattern;
@@ -39,6 +40,12 @@
         /// </summary>
         [YamlMember(Alias = "tag")]
         public string Tag { get; set; }
+
+        /// <summary>
+        /// Use with "tag" param as a replacement for non-standard symbols in SemVer PreReleaseTag
+        /// </summary>
+        [YamlMember(Alias = "tagSeparator")]
+        public string TagSeparator { get; set; }
 
         [YamlMember(Alias = "increment")]
         public IncrementStrategy? Increment { get; set; }

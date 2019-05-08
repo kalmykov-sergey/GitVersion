@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using GitVersion.VersionFilters;
 
 namespace GitVersion
@@ -15,7 +15,7 @@ namespace GitVersion
             string assemblyVersioningFormat,
             string assemblyFileVersioningFormat,
             VersioningMode versioningMode, string gitTagPrefix,
-            string tag, string nextVersion, IncrementStrategy increment,
+            string tag, string tagSeparator, string nextVersion, IncrementStrategy increment,
             string branchPrefixToTrim,
             bool preventIncrementForMergedBranchVersion,
             string tagNumberPattern,
@@ -43,6 +43,7 @@ namespace GitVersion
             VersioningMode = versioningMode;
             GitTagPrefix = gitTagPrefix;
             Tag = tag;
+            TagSeparator = tagSeparator;
             NextVersion = nextVersion;
             Increment = increment;
             BranchPrefixToTrim = branchPrefixToTrim;
@@ -85,6 +86,11 @@ namespace GitVersion
         /// Tag to use when calculating SemVer
         /// </summary>
         public string Tag { get; private set; }
+
+        /// <summary>
+        /// Replacement for non-standard symbols in SemVer PreReleaseTag
+        /// </summary>
+        public string TagSeparator { get; private set; }
 
         public string NextVersion { get; private set; }
 

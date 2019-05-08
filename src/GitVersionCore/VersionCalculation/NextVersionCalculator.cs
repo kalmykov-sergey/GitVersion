@@ -1,4 +1,4 @@
-﻿namespace GitVersion.VersionCalculation
+namespace GitVersion.VersionCalculation
 {
     using System.Linq;
     using System.Text.RegularExpressions;
@@ -123,7 +123,7 @@
                 {
                     branchName = branchName.RegexReplace(configuration.BranchPrefixToTrim, string.Empty, RegexOptions.IgnoreCase);
                 }
-                branchName = branchName.RegexReplace("[^a-zA-Z0-9-]", "-");
+                branchName = branchName.RegexReplace("[^a-zA-Z0-9]", configuration.TagSeparator);
 
                 tagToUse = tagToUse.Replace("{BranchName}", branchName);
             }
